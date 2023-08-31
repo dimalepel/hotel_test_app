@@ -1,6 +1,7 @@
 import 'package:banner_carousel/banner_carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hotel_test_app/screens/room_screen.dart';
 import 'package:hotel_test_app/widgets/chip_item.dart';
 
 import '../themes/app_colors.dart';
@@ -363,12 +364,15 @@ class HomeScreen extends StatelessWidget {
           )
         ),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => RoomScreen()));
+          },
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: AppColors.blue
             ),
+            height: 48,
             child: Center(
               child: Text(
                 'К выбору номера',
