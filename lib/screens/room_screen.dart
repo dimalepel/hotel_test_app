@@ -1,8 +1,10 @@
 import 'package:banner_carousel/banner_carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hotel_test_app/screens/booking_screen.dart';
 
 import '../themes/app_colors.dart';
+import '../widgets/accent_button.dart';
 import '../widgets/chip_item.dart';
 import '../widgets/slide_card.dart';
 
@@ -142,28 +144,9 @@ class RoomScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 16,),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => RoomScreen()));
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: AppColors.blue
-                      ),
-                      height: 48,
-                      child: Center(
-                        child: Text(
-                          'Выбрать номер',
-                          style: TextStyle(
-                              fontFamily: 'San Francisco',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.white
-                          ),
-                        ),
-                      ),
-                    ),
+                  AccentButton(
+                    label: 'Выбрать номер',
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => BookingScreen())),
                   ),
                 ],
               ),
@@ -274,28 +257,9 @@ class RoomScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 16,),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => RoomScreen()));
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: AppColors.blue
-                      ),
-                      height: 48,
-                      child: Center(
-                        child: Text(
-                          'Выбрать номер',
-                          style: TextStyle(
-                              fontFamily: 'San Francisco',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.white
-                          ),
-                        ),
-                      ),
-                    ),
+                  AccentButton(
+                    label: 'Выбрать номер',
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => BookingScreen())),
                   ),
                 ],
               ),

@@ -5,6 +5,7 @@ import 'package:hotel_test_app/screens/room_screen.dart';
 import 'package:hotel_test_app/widgets/chip_item.dart';
 
 import '../themes/app_colors.dart';
+import '../widgets/accent_button.dart';
 import '../widgets/slide_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -363,27 +364,9 @@ class HomeScreen extends StatelessWidget {
             )
           )
         ),
-        child: InkWell(
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => RoomScreen()));
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: AppColors.blue
-            ),
-            height: 48,
-            child: Center(
-              child: Text(
-                'К выбору номера',
-                style: TextStyle(
-                  fontFamily: 'San Francisco',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.white
-                ),
-              ),
-            ),
+        child: AccentButton(
+            label: 'К выбору номера',
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const RoomScreen()),
           ),
         ),
       ),
