@@ -1,7 +1,9 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hotel_test_app/screens/succcess_screen.dart';
 import 'package:hotel_test_app/widgets/tourist_card.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../themes/app_colors.dart';
 import '../widgets/accent_button.dart';
@@ -16,6 +18,11 @@ class BookingScreen extends StatefulWidget {
 
 class _BookingScreenState extends State<BookingScreen> {
   final _formKey = GlobalKey<FormState>();
+  var maskFormatter = MaskTextInputFormatter(
+      mask: '+# (###) ###-##-##',
+      filter: { "#": RegExp(r'[0-9]') },
+      type: MaskAutoCompletionType.lazy
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -344,9 +351,16 @@ class _BookingScreenState extends State<BookingScreen> {
                           ),
                         ),
                         SizedBox(height: 20,),
-                        CustomFormField(label: 'Номер телефона'),
+                        CustomFormField(
+                          label: 'Номер телефона',
+                          formatters: [maskFormatter],
+                          hint: '+7 (***) ***-**-**',
+                        ),
                         SizedBox(height: 8,),
-                        CustomFormField(label: 'Почта'),
+                        CustomFormField(
+                          label: 'Почта',
+                          validator: (value) => EmailValidator.validate(value!) ? null : "Please enter a valid email",
+                        ),
                         SizedBox(height: 8,),
                         Text(
                           'Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту',
