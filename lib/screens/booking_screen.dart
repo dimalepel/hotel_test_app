@@ -15,6 +15,7 @@ class BookingScreen extends StatefulWidget {
 }
 
 class _BookingScreenState extends State<BookingScreen> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -319,120 +320,127 @@ class _BookingScreenState extends State<BookingScreen> {
                 ],
               )
             ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: AppColors.white,
-              ),
-              padding: EdgeInsets.all(16),
-              margin: EdgeInsets.only(bottom: 8),
+            Form(
+              key: _formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Информация о покупателе',
-                    style: TextStyle(
-                        fontFamily: 'San Francisco',
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.black
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: AppColors.white,
                     ),
-                  ),
-                  SizedBox(height: 20,),
-                  CustomFormField(label: 'Номер телефона'),
-                  SizedBox(height: 8,),
-                  CustomFormField(label: 'Почта'),
-                  SizedBox(height: 8,),
-                  Text(
-                    'Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту',
-                    style: TextStyle(
-                      fontFamily: 'San Francisco',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.greyDark
-                    ),
-                  )
-                ],
-              ),
-            ),
-            TouristCard(
-              labelText: 'Первый турист ',
-              children: [
-                SizedBox(height: 6,),
-                CustomFormField(label: 'Имя'),
-                SizedBox(height: 8,),
-                CustomFormField(label: 'Фамилия'),
-                SizedBox(height: 8,),
-                CustomFormField(label: 'Дата рождения'),
-                SizedBox(height: 8,),
-                CustomFormField(label: 'Гражданство'),
-                SizedBox(height: 8,),
-                CustomFormField(label: 'Номер загранпаспорта'),
-                SizedBox(height: 8,),
-                CustomFormField(label: 'Срок действия загранпаспорта'),
-                SizedBox(height: 16,),
-              ],
-            ),
-            TouristCard(
-              labelText: 'Второй турист ',
-              children: [
-                SizedBox(height: 6,),
-                CustomFormField(label: 'Имя'),
-                SizedBox(height: 8,),
-                CustomFormField(label: 'Фамилия'),
-                SizedBox(height: 8,),
-                CustomFormField(label: 'Дата рождения'),
-                SizedBox(height: 8,),
-                CustomFormField(label: 'Гражданство'),
-                SizedBox(height: 8,),
-                CustomFormField(label: 'Номер загранпаспорта'),
-                SizedBox(height: 8,),
-                CustomFormField(label: 'Срок действия загранпаспорта'),
-                SizedBox(height: 16,),
-              ],
-            ),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: AppColors.white,
-              ),
-              margin: EdgeInsets.only(bottom: 8),
-              child: InkWell(
-                onTap: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Добавить туриста',
-                      style: TextStyle(
-                          fontFamily: 'San Francisco',
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.black
-                      ),
-                    ),
-                    Container(
-                      width: 32,
-                      height: 32,
-                      decoration: BoxDecoration(
-                          color: AppColors.blue,
-                          borderRadius: BorderRadius.circular(6)
-                      ),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          'assets/images/svgs/icon_plus.svg',
-                          width: 24,
-                          height: 24,
-                          colorFilter: ColorFilter.mode(
-                              AppColors.white,
-                              BlendMode.srcIn
+                    padding: EdgeInsets.all(16),
+                    margin: EdgeInsets.only(bottom: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Информация о покупателе',
+                          style: TextStyle(
+                              fontFamily: 'San Francisco',
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.black
                           ),
                         ),
+                        SizedBox(height: 20,),
+                        CustomFormField(label: 'Номер телефона'),
+                        SizedBox(height: 8,),
+                        CustomFormField(label: 'Почта'),
+                        SizedBox(height: 8,),
+                        Text(
+                          'Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту',
+                          style: TextStyle(
+                              fontFamily: 'San Francisco',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.greyDark
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  TouristCard(
+                    labelText: 'Первый турист ',
+                    children: [
+                      SizedBox(height: 6,),
+                      CustomFormField(label: 'Имя'),
+                      SizedBox(height: 8,),
+                      CustomFormField(label: 'Фамилия'),
+                      SizedBox(height: 8,),
+                      CustomFormField(label: 'Дата рождения'),
+                      SizedBox(height: 8,),
+                      CustomFormField(label: 'Гражданство'),
+                      SizedBox(height: 8,),
+                      CustomFormField(label: 'Номер загранпаспорта'),
+                      SizedBox(height: 8,),
+                      CustomFormField(label: 'Срок действия загранпаспорта'),
+                      SizedBox(height: 16,),
+                    ],
+                  ),
+                  TouristCard(
+                    labelText: 'Второй турист ',
+                    children: [
+                      SizedBox(height: 6,),
+                      CustomFormField(label: 'Имя'),
+                      SizedBox(height: 8,),
+                      CustomFormField(label: 'Фамилия'),
+                      SizedBox(height: 8,),
+                      CustomFormField(label: 'Дата рождения'),
+                      SizedBox(height: 8,),
+                      CustomFormField(label: 'Гражданство'),
+                      SizedBox(height: 8,),
+                      CustomFormField(label: 'Номер загранпаспорта'),
+                      SizedBox(height: 8,),
+                      CustomFormField(label: 'Срок действия загранпаспорта'),
+                      SizedBox(height: 16,),
+                    ],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: AppColors.white,
+                    ),
+                    margin: EdgeInsets.only(bottom: 8),
+                    child: InkWell(
+                      onTap: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Добавить туриста',
+                            style: TextStyle(
+                                fontFamily: 'San Francisco',
+                                fontSize: 22,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.black
+                            ),
+                          ),
+                          Container(
+                            width: 32,
+                            height: 32,
+                            decoration: BoxDecoration(
+                                color: AppColors.blue,
+                                borderRadius: BorderRadius.circular(6)
+                            ),
+                            child: Center(
+                              child: SvgPicture.asset(
+                                'assets/images/svgs/icon_plus.svg',
+                                width: 24,
+                                height: 24,
+                                colorFilter: ColorFilter.mode(
+                                    AppColors.white,
+                                    BlendMode.srcIn
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             Container(
@@ -575,8 +583,11 @@ class _BookingScreenState extends State<BookingScreen> {
         ),
         child: AccentButton(
           label: 'Оплатить 198 036 ₽',
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SuccessScreen()),
-          ),
+          onTap: () {
+            if (_formKey.currentState!.validate()) {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const SuccessScreen()));
+            }
+          },
         ),
       ),
     );
