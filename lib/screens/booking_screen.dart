@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hotel_test_app/screens/room_screen.dart';
+import 'package:hotel_test_app/screens/succcess_screen.dart';
 
 import '../themes/app_colors.dart';
 import '../widgets/accent_button.dart';
@@ -328,7 +328,7 @@ class BookingScreen extends StatelessWidget {
         ),
         child: AccentButton(
           label: 'Оплатить 198 036 ₽',
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const RoomScreen()),
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SuccessScreen()),
           ),
         ),
       ),
