@@ -14,4 +14,6 @@ abstract class AppColors {
   static Color greyLight = const Color(0xffe8e9ec);
   static Color greyAlt = const Color(0xfff6f6f9);
   static Color blackAlt = const Color(0xff2c3035);
+  static Color greyPlaceholder = const Color(0xffa9abb7);
+  static Color blackInput = const Color(0xff14142b);
 }

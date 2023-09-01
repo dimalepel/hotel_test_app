@@ -311,6 +311,108 @@ class BookingScreen extends StatelessWidget {
                 ],
               )
             ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: AppColors.white,
+              ),
+              padding: EdgeInsets.all(16),
+              margin: EdgeInsets.only(bottom: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Информация о покупателе',
+                    style: TextStyle(
+                        fontFamily: 'San Francisco',
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.black
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  TextFormField(
+                    style: TextStyle(
+                      color: AppColors.blackInput,
+                      fontSize: 16,
+                      fontFamily: 'San Francisco',
+                      fontWeight: FontWeight.w400
+                    ),
+                    decoration: InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                        bottom: 16,
+                        top: 16
+                      ),
+                      filled: true,
+                      fillColor: AppColors.greyAlt,
+                      labelText: 'Номер телефона',
+                      labelStyle: TextStyle(
+                          fontFamily: 'San Francisco',
+                          fontSize: 17,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.greyPlaceholder
+                      ),
+                      floatingLabelStyle: TextStyle(
+                        height: 4,
+                        color: AppColors.greyPlaceholder
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8,),
+                  TextFormField(
+                    style: TextStyle(
+                        color: AppColors.blackInput,
+                        fontSize: 16,
+                        fontFamily: 'San Francisco',
+                        fontWeight: FontWeight.w400
+                    ),
+                    decoration: InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.only(
+                          left: 16,
+                          right: 16,
+                          bottom: 16,
+                          top: 16
+                      ),
+                      filled: true,
+                      fillColor: AppColors.greyAlt,
+                      labelText: 'Почта',
+                      labelStyle: TextStyle(
+                          fontFamily: 'San Francisco',
+                          fontSize: 17,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.greyPlaceholder
+                      ),
+                      floatingLabelStyle: TextStyle(
+                          height: 4,
+                          color: AppColors.greyPlaceholder
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8,),
+                  Text(
+                    'Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту',
+                    style: TextStyle(
+                      fontFamily: 'San Francisco',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.greyDark
+                    ),
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),
