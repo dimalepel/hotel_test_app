@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hotel_test_app/screens/succcess_screen.dart';
+import 'package:hotel_test_app/widgets/tourist_card.dart';
 
 import '../themes/app_colors.dart';
 import '../widgets/accent_button.dart';
+import '../widgets/custom_form_field.dart';
 
-class BookingScreen extends StatelessWidget {
+class BookingScreen extends StatefulWidget {
   const BookingScreen({super.key});
+
+  @override
+  State<BookingScreen> createState() => _BookingScreenState();
+}
+
+class _BookingScreenState extends State<BookingScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -331,75 +339,9 @@ class BookingScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20,),
-                  TextFormField(
-                    style: TextStyle(
-                      color: AppColors.blackInput,
-                      fontSize: 16,
-                      fontFamily: 'San Francisco',
-                      fontWeight: FontWeight.w400
-                    ),
-                    decoration: InputDecoration(
-                      isDense: true,
-                      contentPadding: EdgeInsets.only(
-                        left: 16,
-                        right: 16,
-                        bottom: 16,
-                        top: 16
-                      ),
-                      filled: true,
-                      fillColor: AppColors.greyAlt,
-                      labelText: 'Номер телефона',
-                      labelStyle: TextStyle(
-                          fontFamily: 'San Francisco',
-                          fontSize: 17,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.greyPlaceholder
-                      ),
-                      floatingLabelStyle: TextStyle(
-                        height: 4,
-                        color: AppColors.greyPlaceholder
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
+                  CustomFormField(label: 'Номер телефона'),
                   SizedBox(height: 8,),
-                  TextFormField(
-                    style: TextStyle(
-                        color: AppColors.blackInput,
-                        fontSize: 16,
-                        fontFamily: 'San Francisco',
-                        fontWeight: FontWeight.w400
-                    ),
-                    decoration: InputDecoration(
-                      isDense: true,
-                      contentPadding: EdgeInsets.only(
-                          left: 16,
-                          right: 16,
-                          bottom: 16,
-                          top: 16
-                      ),
-                      filled: true,
-                      fillColor: AppColors.greyAlt,
-                      labelText: 'Почта',
-                      labelStyle: TextStyle(
-                          fontFamily: 'San Francisco',
-                          fontSize: 17,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.greyPlaceholder
-                      ),
-                      floatingLabelStyle: TextStyle(
-                          height: 4,
-                          color: AppColors.greyPlaceholder
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
+                  CustomFormField(label: 'Почта'),
                   SizedBox(height: 8,),
                   Text(
                     'Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту',
@@ -412,6 +354,207 @@ class BookingScreen extends StatelessWidget {
                   )
                 ],
               ),
+            ),
+            TouristCard(
+              labelText: 'Первый турист ',
+              children: [
+                SizedBox(height: 20,),
+                CustomFormField(label: 'Имя'),
+                SizedBox(height: 8,),
+                CustomFormField(label: 'Фамилия'),
+                SizedBox(height: 8,),
+                CustomFormField(label: 'Дата рождения'),
+                SizedBox(height: 8,),
+                CustomFormField(label: 'Гражданство'),
+                SizedBox(height: 8,),
+                CustomFormField(label: 'Номер загранпаспорта'),
+                SizedBox(height: 8,),
+                CustomFormField(label: 'Срок действия загранпаспорта'),
+              ],
+            ),
+            TouristCard(
+              labelText: 'Второй турист ',
+              children: [
+                SizedBox(height: 20,),
+                CustomFormField(label: 'Имя'),
+                SizedBox(height: 8,),
+                CustomFormField(label: 'Фамилия'),
+                SizedBox(height: 8,),
+                CustomFormField(label: 'Дата рождения'),
+                SizedBox(height: 8,),
+                CustomFormField(label: 'Гражданство'),
+                SizedBox(height: 8,),
+                CustomFormField(label: 'Номер загранпаспорта'),
+                SizedBox(height: 8,),
+                CustomFormField(label: 'Срок действия загранпаспорта'),
+              ],
+            ),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: AppColors.white,
+              ),
+              margin: EdgeInsets.only(bottom: 8),
+              child: InkWell(
+                onTap: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Добавить туриста',
+                      style: TextStyle(
+                          fontFamily: 'San Francisco',
+                          fontSize: 22,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.black
+                      ),
+                    ),
+                    Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                          color: AppColors.blue,
+                          borderRadius: BorderRadius.circular(6)
+                      ),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/images/svgs/icon_plus.svg',
+                          width: 24,
+                          height: 24,
+                          colorFilter: ColorFilter.mode(
+                              AppColors.white,
+                              BlendMode.srcIn
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: AppColors.white,
+                ),
+                margin: EdgeInsets.only(bottom: 8),
+                child: Table(
+                  defaultVerticalAlignment: TableCellVerticalAlignment.top,
+                  children: [
+                    TableRow(
+                        children: [
+                          Text(
+                            'Тур',
+                            style: TextStyle(
+                                fontFamily: 'San Francisco',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.greyDark
+                            ),
+                          ),
+                          Text(
+                            '186 600 ₽',
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                                fontFamily: 'San Francisco',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.black
+                            ),
+                          ),
+                        ]
+                    ),
+                    TableRow(
+                        children: [
+                          SizedBox(height: 16,),
+                          SizedBox(height: 16,),
+                        ]
+                    ),
+                    TableRow(
+                        children: [
+                          Text(
+                            'Топливный сбор',
+                            style: TextStyle(
+                                fontFamily: 'San Francisco',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.greyDark
+                            ),
+                          ),
+                          Text(
+                            '9 300 ₽',
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                                fontFamily: 'San Francisco',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.black
+                            ),
+                          ),
+                        ]
+                    ),
+                    TableRow(
+                        children: [
+                          SizedBox(height: 16,),
+                          SizedBox(height: 16,),
+                        ]
+                    ),
+                    TableRow(
+                        children: [
+                          Text(
+                            'Сервисный сбор',
+                            style: TextStyle(
+                                fontFamily: 'San Francisco',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.greyDark
+                            ),
+                          ),
+                          Text(
+                            '2 136 ₽',
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                                fontFamily: 'San Francisco',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.black
+                            ),
+                          ),
+                        ]
+                    ),
+                    TableRow(
+                        children: [
+                          SizedBox(height: 16,),
+                          SizedBox(height: 16,),
+                        ]
+                    ),
+                    TableRow(
+                        children: [
+                          Text(
+                            'К оплате',
+                            style: TextStyle(
+                                fontFamily: 'San Francisco',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.greyDark
+                            ),
+                          ),
+                          Text(
+                            '198 036 ₽',
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                                fontFamily: 'San Francisco',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.blue
+                            ),
+                          ),
+                        ]
+                    ),
+                  ],
+                )
             ),
           ],
         ),
