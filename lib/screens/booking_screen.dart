@@ -358,7 +358,7 @@ class _BookingScreenState extends State<BookingScreen> {
             TouristCard(
               labelText: 'Первый турист ',
               children: [
-                SizedBox(height: 20,),
+                SizedBox(height: 6,),
                 CustomFormField(label: 'Имя'),
                 SizedBox(height: 8,),
                 CustomFormField(label: 'Фамилия'),
@@ -370,12 +370,13 @@ class _BookingScreenState extends State<BookingScreen> {
                 CustomFormField(label: 'Номер загранпаспорта'),
                 SizedBox(height: 8,),
                 CustomFormField(label: 'Срок действия загранпаспорта'),
+                SizedBox(height: 16,),
               ],
             ),
             TouristCard(
               labelText: 'Второй турист ',
               children: [
-                SizedBox(height: 20,),
+                SizedBox(height: 6,),
                 CustomFormField(label: 'Имя'),
                 SizedBox(height: 8,),
                 CustomFormField(label: 'Фамилия'),
@@ -387,6 +388,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 CustomFormField(label: 'Номер загранпаспорта'),
                 SizedBox(height: 8,),
                 CustomFormField(label: 'Срок действия загранпаспорта'),
+                SizedBox(height: 16,),
               ],
             ),
             Container(

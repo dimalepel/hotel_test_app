@@ -24,7 +24,10 @@ class _TouristCardState extends State<TouristCard> {
         borderRadius: BorderRadius.circular(12),
         color: AppColors.white,
       ),
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 2
+      ),
       margin: EdgeInsets.only(bottom: 8),
       child: ExpansionTile(
         onExpansionChanged: (bool expanded) {
