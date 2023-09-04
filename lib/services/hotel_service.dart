@@ -4,19 +4,26 @@ import 'dart:convert';
 import '../models/hotel_model.dart';
 
 class HotelService {
-  Future<Hotel> getSingleHotel() {
-    return http.get(
-      Uri.parse('https://run.mocky.io/v3/35e0d18e-2521-4f1b-a575-f0fe366f66e3'),
-      headers: <String, String> {
-        'Content-Type': 'application/json; charset=UTF-8',
-      }).then((response) {
-        var json = jsonDecode(utf8.decode(response.bodyBytes));
+  Future<Hotel?> getSingleHotel() async {
+    Hotel? result;
 
-        if (response.statusCode == 200) {
-          return Hotel.fromJson(json);
-        } else {
-          return Hotel.fromJson(json);
-        }
-      });
+    try {
+      final response = await http.get(
+          Uri.parse('https://run.mocky.io/v3/35e0d18e-2521-4f1b-a575-f0fe366f66e3'),
+          headers: <String, String> {
+            'Content-Type': 'application/json; charset=UTF-8',
+          });
+
+      if (response.statusCode == 200) {
+        final json = jsonDecode(utf8.decode(response.bodyBytes));
+        result = Hotel.fromJson(json);
+      } else {
+        print('error');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+
+    return result;
   }
 }
