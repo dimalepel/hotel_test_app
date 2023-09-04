@@ -355,11 +355,13 @@ class _BookingScreenState extends State<BookingScreen> {
                           label: 'Номер телефона',
                           formatters: [maskFormatter],
                           hint: '+7 (***) ***-**-**',
+                          req: true,
                         ),
                         SizedBox(height: 8,),
                         CustomFormField(
                           label: 'Почта',
                           validator: (value) => EmailValidator.validate(value!) ? null : "Please enter a valid email",
+                          req: true,
                         ),
                         SizedBox(height: 8,),
                         Text(

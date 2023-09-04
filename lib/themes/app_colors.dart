@@ -16,4 +16,5 @@ abstract class AppColors {
   static Color blackAlt = const Color(0xff2c3035);
   static Color greyPlaceholder = const Color(0xffa9abb7);
   static Color blackInput = const Color(0xff14142b);
+  static Color red15 = const Color(0xffeb5757).withOpacity(0.15);
 }
