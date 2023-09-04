@@ -1,18 +1,34 @@
 import 'package:banner_carousel/banner_carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hotel_test_app/providers/hotel_provider.dart';
 import 'package:hotel_test_app/screens/room_screen.dart';
 import 'package:hotel_test_app/widgets/chip_item.dart';
+import 'package:provider/provider.dart';
 
 import '../themes/app_colors.dart';
 import '../widgets/accent_button.dart';
 import '../widgets/slide_card.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    final hotelData = Provider.of<HotelDataProvider>(context, listen: false);
+    hotelData.getHotelData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final hotelData = Provider.of<HotelDataProvider>(context);
+
     return Scaffold(
       backgroundColor: AppColors.greyAlt,
       appBar: AppBar(
@@ -86,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         SizedBox(width: 2,),
                         Text(
-                          '5 Превосходно',
+                          '5 Превосходно ${hotelData.hotel?.id}',
                           style: TextStyle(
                             fontFamily: 'San Francisco',
                             fontSize: 16,

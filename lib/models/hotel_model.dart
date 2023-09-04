@@ -6,7 +6,7 @@ class Hotel {
   String? priceForIt;
   int? rating;
   String? ratingName;
-  List<String>? imageUrls;
+  List<dynamic>? imageUrls;
   AboutTheHotel? aboutTheHotel;
 
   Hotel({
@@ -37,7 +37,7 @@ class Hotel {
 
 class AboutTheHotel {
   String? description;
-  List<String>? peculiarities;
+  List<dynamic>? peculiarities;
 
   AboutTheHotel({
     this.description,
