@@ -5,6 +5,7 @@ import 'package:hotel_test_app/providers/hotel_provider.dart';
 import 'package:hotel_test_app/screens/room_screen.dart';
 import 'package:hotel_test_app/widgets/chip_item.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 import '../themes/app_colors.dart';
 import '../widgets/accent_button.dart';
@@ -81,12 +82,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           indicatorBottom: false,
                           disableColor: AppColors.grey,
                           activeColor: AppColors.black,
-                          customizedBanners: [
-                            SlideCard(imagePath: 'assets/images/pic_hotel.png',),
-                            SlideCard(imagePath: 'assets/images/pic_room_1.png',),
-                            SlideCard(imagePath: 'assets/images/pic_room_2.png',),
-                            SlideCard(imagePath: 'assets/images/pic_hotel.png',),
-                          ],
+                          customizedBanners: List.generate(
+                            hotelData.hotel!.imageUrls!.length,
+                            (index) => SlideCard(imagePath: hotelData.hotel!.imageUrls![index]),
+                          ),
                         ),
                         SizedBox(height: 16,),
                         Container(
@@ -108,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               SizedBox(width: 2,),
                               Text(
-                                '5 Превосходно ${hotelData.hotel?.id}',
+                                '${hotelData.hotel?.rating} ${hotelData.hotel?.ratingName}',
                                 style: TextStyle(
                                   fontFamily: 'San Francisco',
                                   fontSize: 16,
@@ -121,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         SizedBox(height: 8,),
                         Text(
-                          'Steigenberger Makadi',
+                          '${hotelData.hotel?.name}',
                           style: TextStyle(
                             fontFamily: 'San Francisco',
                             fontSize: 22,
@@ -138,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             minimumSize: Size(0, 0)
                           ),
                           child: Text(
-                            'Madinat Makadi, Safaga Road, Makadi Bay, Египет',
+                            '${hotelData.hotel?.address}',
                             style: TextStyle(
                                 fontFamily: 'San Francisco',
                                 fontSize: 14,
@@ -152,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              'от 134 673 ₽',
+                              'от ${(NumberFormat().format(hotelData.hotel?.minimalPrice)).toString().replaceAll(',', ' ')} ₽',
                               style: TextStyle(
                                 fontFamily: 'San Francisco',
                                 fontSize: 30,
@@ -162,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             SizedBox(width: 8,),
                             Text(
-                              'за тур с перелётом',
+                              '${hotelData.hotel?.priceForIt?.toLowerCase()}',
                               style: TextStyle(
                                   fontFamily: 'San Francisco',
                                   fontSize: 16,
@@ -198,16 +197,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         Wrap(
                           spacing: 8,
                           runSpacing: 8,
-                          children: [
-                            ChipItem(label: '3-я линия'),
-                            ChipItem(label: 'Платный Wi-Fi в фойе'),
-                            ChipItem(label: '30 км до аэропорта'),
-                            ChipItem(label: '1 км до пляжа'),
-                          ],
+                          children: List.generate(
+                              hotelData.hotel!.aboutTheHotel!.peculiarities!.length,
+                              (index) => ChipItem(label: hotelData.hotel!.aboutTheHotel!.peculiarities![index])
+                          ),
                         ),
                         SizedBox(height: 12,),
                         Text(
-                          'Отель VIP-класса с собственными гольф полями. Высокий уровнь сервиса. Рекомендуем для респектабельного отдыха. Отель принимает гостей от 18 лет!',
+                          '${hotelData.hotel?.aboutTheHotel?.description}',
                           style: TextStyle(
                             fontSize: 16,
                             fontFamily: 'San Francisco',

@@ -16,7 +16,6 @@ class HotelService {
 
       if (response.statusCode == 200) {
         final json = jsonDecode(utf8.decode(response.bodyBytes));
-        print(json.toString());
         result = Hotel.fromJson(json);
       } else {
         print('error');
@@ -24,8 +23,6 @@ class HotelService {
     } catch (e) {
       print(e.toString());
     }
-
-    print(result.toString());
 
     return result;
   }

@@ -9,7 +9,7 @@ class SlideCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(15),
-      child: Image.asset(
+      child: Image.network(
         imagePath,
         height: 257,
         fit: BoxFit.cover,
