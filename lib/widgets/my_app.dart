@@ -4,6 +4,7 @@ import 'package:hotel_test_app/providers/room_provider.dart';
 import 'package:hotel_test_app/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/booking_provider.dart';
 import '../screens/room_screen.dart';
 import '../themes/app_colors.dart';
 
@@ -19,7 +20,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<RoomDataProvider>(
           create: (context) => RoomDataProvider(),
-        )
+        ),
+        ChangeNotifierProvider<BookingDataProvider>(
+          create: (context) => BookingDataProvider(),
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData(

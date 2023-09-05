@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hotel_test_app/screens/succcess_screen.dart';
 import 'package:hotel_test_app/widgets/tourist_card.dart';
+import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/booking_provider.dart';
 import '../themes/app_colors.dart';
 import '../widgets/accent_button.dart';
 import '../widgets/custom_form_field.dart';
@@ -25,7 +28,19 @@ class _BookingScreenState extends State<BookingScreen> {
   );
 
   @override
+  void initState() {
+    final bookingData = Provider.of<BookingDataProvider>(context, listen: false);
+    bookingData.getBookingData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final bookingData = Provider.of<BookingDataProvider>(context);
+    final int paySumm = bookingData.booking!.tourPrice
+        + bookingData.booking!.fuelCharge
+        + bookingData.booking!.serviceCharge;
+
     return Scaffold(
       backgroundColor: AppColors.greyAlt,
       appBar: AppBar(
@@ -82,7 +97,7 @@ class _BookingScreenState extends State<BookingScreen> {
                         ),
                         SizedBox(width: 2,),
                         Text(
-                          '5 Превосходно',
+                          '${(bookingData.booking!.horating).toString()} ${bookingData.booking!.ratingName}',
                           style: TextStyle(
                               fontFamily: 'San Francisco',
                               fontSize: 16,
@@ -95,7 +110,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   ),
                   SizedBox(height: 8,),
                   Text(
-                    'Steigenberger Makadi',
+                    '${bookingData.booking!.hotelName}',
                     style: TextStyle(
                         fontFamily: 'San Francisco',
                         fontSize: 22,
@@ -112,7 +127,7 @@ class _BookingScreenState extends State<BookingScreen> {
                         minimumSize: Size(0, 0)
                     ),
                     child: Text(
-                      'Madinat Makadi, Safaga Road, Makadi Bay, Египет',
+                      '${bookingData.booking!.hotelAddress}',
                       style: TextStyle(
                           fontFamily: 'San Francisco',
                           fontSize: 14,
@@ -146,7 +161,7 @@ class _BookingScreenState extends State<BookingScreen> {
                         ),
                       ),
                       Text(
-                        'Санкт-Петербург',
+                        '${bookingData.booking!.departure}',
                         style: TextStyle(
                             fontFamily: 'San Francisco',
                             fontSize: 16,
@@ -174,7 +189,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           ),
                         ),
                         Text(
-                          'Египет, Хургада',
+                          '${bookingData.booking!.arrivalCountry}',
                           style: TextStyle(
                               fontFamily: 'San Francisco',
                               fontSize: 16,
@@ -202,7 +217,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           ),
                         ),
                         Text(
-                          '19.09.2023 – 27.09.2023',
+                          '${bookingData.booking!.tourDateStart} – ${bookingData.booking!.tourDateStop}',
                           style: TextStyle(
                               fontFamily: 'San Francisco',
                               fontSize: 16,
@@ -230,7 +245,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           ),
                         ),
                         Text(
-                          '7 ночей',
+                          '${bookingData.booking!.numberOfNights} ночей',
                           style: TextStyle(
                               fontFamily: 'San Francisco',
                               fontSize: 16,
@@ -258,7 +273,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           ),
                         ),
                         Text(
-                          'Steigenberger Makadi',
+                          '${bookingData.booking!.hotelName}',
                           style: TextStyle(
                               fontFamily: 'San Francisco',
                               fontSize: 16,
@@ -286,7 +301,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           ),
                         ),
                         Text(
-                          'Стандартный с видом на бассейн или сад',
+                          '${bookingData.booking!.room}',
                           style: TextStyle(
                               fontFamily: 'San Francisco',
                               fontSize: 16,
@@ -314,7 +329,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           ),
                         ),
                         Text(
-                          'Все включено',
+                          '${bookingData.booking!.nutrition}',
                           style: TextStyle(
                               fontFamily: 'San Francisco',
                               fontSize: 16,
@@ -481,7 +496,7 @@ class _BookingScreenState extends State<BookingScreen> {
                             ),
                           ),
                           Text(
-                            '186 600 ₽',
+                            '${(NumberFormat().format(bookingData.booking!.tourPrice)).toString().replaceAll(',', ' ')} ₽',
                             textAlign: TextAlign.end,
                             style: TextStyle(
                                 fontFamily: 'San Francisco',
@@ -510,7 +525,7 @@ class _BookingScreenState extends State<BookingScreen> {
                             ),
                           ),
                           Text(
-                            '9 300 ₽',
+                            '${(NumberFormat().format(bookingData.booking!.fuelCharge)).toString().replaceAll(',', ' ')} ₽',
                             textAlign: TextAlign.end,
                             style: TextStyle(
                                 fontFamily: 'San Francisco',
@@ -539,7 +554,7 @@ class _BookingScreenState extends State<BookingScreen> {
                             ),
                           ),
                           Text(
-                            '2 136 ₽',
+                            '${(NumberFormat().format(bookingData.booking!.serviceCharge)).toString().replaceAll(',', ' ')} ₽',
                             textAlign: TextAlign.end,
                             style: TextStyle(
                                 fontFamily: 'San Francisco',
@@ -568,7 +583,7 @@ class _BookingScreenState extends State<BookingScreen> {
                             ),
                           ),
                           Text(
-                            '198 036 ₽',
+                            '${(NumberFormat().format(paySumm)).toString().replaceAll(',', ' ')} ₽',
                             textAlign: TextAlign.end,
                             style: TextStyle(
                                 fontFamily: 'San Francisco',
@@ -598,7 +613,7 @@ class _BookingScreenState extends State<BookingScreen> {
             )
         ),
         child: AccentButton(
-          label: 'Оплатить 198 036 ₽',
+          label: 'Оплатить ${(NumberFormat().format(paySumm)).toString().replaceAll(',', ' ')} ₽',
           onTap: () {
             if (_formKey.currentState!.validate()) {
               Navigator.push(context, MaterialPageRoute(builder: (_) => const SuccessScreen()));
