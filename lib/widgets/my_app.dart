@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_test_app/providers/hotel_provider.dart';
+import 'package:hotel_test_app/providers/room_provider.dart';
 import 'package:hotel_test_app/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<HotelDataProvider>(
           create: (context) => HotelDataProvider(),
         ),
+        ChangeNotifierProvider<RoomDataProvider>(
+          create: (context) => RoomDataProvider(),
+        )
       ],
       child: MaterialApp(
         theme: ThemeData(

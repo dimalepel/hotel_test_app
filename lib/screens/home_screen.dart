@@ -120,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         SizedBox(height: 8,),
                         Text(
-                          '${hotelData.hotel?.name}',
+                          '${hotelData.hotel!.name}',
                           style: TextStyle(
                             fontFamily: 'San Francisco',
                             fontSize: 22,
@@ -385,7 +385,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: AccentButton(
             label: 'К выбору номера',
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const RoomScreen()),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RoomScreen(hotelName: hotelData.hotel!.name,)),
           ),
         ),
       ),
