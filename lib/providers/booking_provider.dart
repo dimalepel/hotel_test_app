@@ -1,18 +1,35 @@
 import 'package:flutter/foundation.dart';
 
 import '../models/booking_model.dart';
+import '../models/customer_model.dart';
 import '../services/booking_service.dart';
 
 class BookingDataProvider extends ChangeNotifier {
   Booking? booking;
   bool loading = false;
   final bookingService = BookingService();
+  Customer? customer = Customer(
+      phoneNumber: '+7 (951) 555-99-00',
+      email: 'examplemail.000@mail.ru',
+      tourists: [
+        Tourist(id: 0)
+      ]
+  );
 
   getBookingData() async {
     loading = true;
     booking = (await bookingService.getBookingData());
+    customer = customer;
     loading = false;
 
     notifyListeners();
   }
+
+  void addTourist() {
+    int touristLen = customer!.tourists!.length;
+
+    customer!.tourists!.add(Tourist(id: touristLen));
+    notifyListeners();
+  }
+
 }

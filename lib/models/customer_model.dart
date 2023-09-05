@@ -24,20 +24,22 @@ class Customer {
 }
 
 class Tourist {
-  String name;
-  String surname;
-  String dateBirthday;
-  String citizenship;
-  int passportNumber;
-  String datePassportStop;
+  int id;
+  String? name;
+  String? surname;
+  String? dateBirthday;
+  String? citizenship;
+  int? passportNumber;
+  String? datePassportStop;
 
   Tourist({
-    required this.name,
-    required this.surname,
-    required this.dateBirthday,
-    required this.citizenship,
-    required this.passportNumber,
-    required this.datePassportStop
+    required this.id,
+    this.name,
+    this.surname,
+    this.dateBirthday,
+    this.citizenship,
+    this.passportNumber,
+    this.datePassportStop
   });
 
   Map<String, dynamic> toJson() {

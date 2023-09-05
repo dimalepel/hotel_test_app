@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hotel_test_app/models/booking_model.dart';
 import 'package:hotel_test_app/screens/succcess_screen.dart';
 import 'package:hotel_test_app/widgets/tourist_card.dart';
 import 'package:intl/intl.dart';
@@ -37,9 +38,6 @@ class _BookingScreenState extends State<BookingScreen> {
   @override
   Widget build(BuildContext context) {
     final bookingData = Provider.of<BookingDataProvider>(context);
-    final int paySumm = bookingData.booking!.tourPrice
-        + bookingData.booking!.fuelCharge
-        + bookingData.booking!.serviceCharge;
 
     return Scaffold(
       backgroundColor: AppColors.greyAlt,
@@ -62,7 +60,13 @@ class _BookingScreenState extends State<BookingScreen> {
         elevation: 0,
         backgroundColor: AppColors.white,
       ),
-      body: SingleChildScrollView(
+      body: (bookingData.loading)
+          ? Center(
+              child: Image.asset(
+                  'assets/images/spinner.gif'
+              ),
+            )
+          :SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -371,12 +375,14 @@ class _BookingScreenState extends State<BookingScreen> {
                           formatters: [maskFormatter],
                           hint: '+7 (***) ***-**-**',
                           req: true,
+                          val: bookingData.customer!.phoneNumber,
                         ),
                         SizedBox(height: 8,),
                         CustomFormField(
                           label: 'Почта',
                           validator: (value) => EmailValidator.validate(value!) ? null : "Please enter a valid email",
                           req: true,
+                          val: bookingData.customer!.email,
                         ),
                         SizedBox(height: 8,),
                         Text(
@@ -391,41 +397,28 @@ class _BookingScreenState extends State<BookingScreen> {
                       ],
                     ),
                   ),
-                  TouristCard(
-                    labelText: 'Первый турист ',
-                    children: [
-                      SizedBox(height: 6,),
-                      CustomFormField(label: 'Имя'),
-                      SizedBox(height: 8,),
-                      CustomFormField(label: 'Фамилия'),
-                      SizedBox(height: 8,),
-                      CustomFormField(label: 'Дата рождения'),
-                      SizedBox(height: 8,),
-                      CustomFormField(label: 'Гражданство'),
-                      SizedBox(height: 8,),
-                      CustomFormField(label: 'Номер загранпаспорта'),
-                      SizedBox(height: 8,),
-                      CustomFormField(label: 'Срок действия загранпаспорта'),
-                      SizedBox(height: 16,),
-                    ],
-                  ),
-                  TouristCard(
-                    labelText: 'Второй турист ',
-                    children: [
-                      SizedBox(height: 6,),
-                      CustomFormField(label: 'Имя'),
-                      SizedBox(height: 8,),
-                      CustomFormField(label: 'Фамилия'),
-                      SizedBox(height: 8,),
-                      CustomFormField(label: 'Дата рождения'),
-                      SizedBox(height: 8,),
-                      CustomFormField(label: 'Гражданство'),
-                      SizedBox(height: 8,),
-                      CustomFormField(label: 'Номер загранпаспорта'),
-                      SizedBox(height: 8,),
-                      CustomFormField(label: 'Срок действия загранпаспорта'),
-                      SizedBox(height: 16,),
-                    ],
+                  Column(
+                    children: List.generate(
+                        bookingData.customer!.tourists!.length,
+                        (index) => TouristCard(
+                          labelText: '${convertToString(bookingData.customer!.tourists![index].id + 1)} турист',
+                          children: [
+                            SizedBox(height: 6,),
+                            CustomFormField(label: 'Имя'),
+                            SizedBox(height: 8,),
+                            CustomFormField(label: 'Фамилия'),
+                            SizedBox(height: 8,),
+                            CustomFormField(label: 'Дата рождения'),
+                            SizedBox(height: 8,),
+                            CustomFormField(label: 'Гражданство'),
+                            SizedBox(height: 8,),
+                            CustomFormField(label: 'Номер загранпаспорта'),
+                            SizedBox(height: 8,),
+                            CustomFormField(label: 'Срок действия загранпаспорта'),
+                            SizedBox(height: 16,),
+                          ],
+                        ),
+                    ),
                   ),
                   Container(
                     padding: const EdgeInsets.all(16),
@@ -435,7 +428,7 @@ class _BookingScreenState extends State<BookingScreen> {
                     ),
                     margin: EdgeInsets.only(bottom: 8),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () => Provider.of<BookingDataProvider>(context, listen: false).addTourist(),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -583,7 +576,9 @@ class _BookingScreenState extends State<BookingScreen> {
                             ),
                           ),
                           Text(
-                            '${(NumberFormat().format(paySumm)).toString().replaceAll(',', ' ')} ₽',
+                            '${(NumberFormat().format(bookingData.booking!.tourPrice
+                                + bookingData.booking!.fuelCharge
+                                + bookingData.booking!.serviceCharge)).toString().replaceAll(',', ' ')} ₽',
                             textAlign: TextAlign.end,
                             style: TextStyle(
                                 fontFamily: 'San Francisco',
@@ -600,7 +595,7 @@ class _BookingScreenState extends State<BookingScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
+      bottomNavigationBar: (bookingData.loading) ? null : Container(
         height: 72,
         padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         decoration: BoxDecoration(
@@ -613,7 +608,9 @@ class _BookingScreenState extends State<BookingScreen> {
             )
         ),
         child: AccentButton(
-          label: 'Оплатить ${(NumberFormat().format(paySumm)).toString().replaceAll(',', ' ')} ₽',
+          label: 'Оплатить ${(NumberFormat().format(bookingData.booking!.tourPrice
+              + bookingData.booking!.fuelCharge
+              + bookingData.booking!.serviceCharge)).toString().replaceAll(',', ' ')} ₽',
           onTap: () {
             if (_formKey.currentState!.validate()) {
               Navigator.push(context, MaterialPageRoute(builder: (_) => const SuccessScreen()));
@@ -622,5 +619,30 @@ class _BookingScreenState extends State<BookingScreen> {
         ),
       ),
     );
+  }
+
+  String convertToString(int num) {
+    switch(num){
+      case 1:
+        return 'Первый';
+      case 2:
+        return 'Второй';
+      case 3:
+        return 'Третий';
+      case 4:
+        return 'Четвертый';
+      case 5:
+        return 'Пятый';
+      case 6:
+        return 'Шестой';
+      case 7:
+        return 'Седьмой';
+      case 8:
+        return 'Восьмой';
+      case 9:
+        return 'Девятый';
+      default:
+        return 'Еще один';
+    }
   }
 }

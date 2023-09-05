@@ -10,6 +10,7 @@ class CustomFormField extends StatefulWidget {
   final List<TextInputFormatter>? formatters;
   final String? hint;
   final bool? req;
+  final String? val;
 
   const CustomFormField({
     super.key,
@@ -17,7 +18,8 @@ class CustomFormField extends StatefulWidget {
     this.validator,
     this.formatters,
     this.hint,
-    this.req
+    this.req,
+    this.val
   });
 
   @override
@@ -51,6 +53,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
 
         return null;
       },
+      initialValue: widget.val,
       inputFormatters: widget.formatters,
       style: TextStyle(
           color: AppColors.blackInput,
