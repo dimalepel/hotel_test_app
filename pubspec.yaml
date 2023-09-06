@@ -39,3 +39,8 @@ flutter:
           weight: 500
         - asset: assets/fonts/SFProDisplay-Semibold.ttf
           weight: 600
+
+flutter_native_splash:
+  android: true
+
+  background_image: "assets/images/app_background.png"
