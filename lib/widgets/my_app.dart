@@ -3,6 +3,7 @@ import 'package:hotel_test_app/providers/hotel_provider.dart';
 import 'package:hotel_test_app/providers/room_provider.dart';
 import 'package:hotel_test_app/screens/home_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../providers/booking_provider.dart';
 import '../screens/room_screen.dart';
@@ -26,6 +27,15 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
+        supportedLocales: [
+          const Locale('en', 'US'),
+          const Locale('ru', 'RU'),
+        ],
         theme: ThemeData(
             dividerColor: AppColors.transparent
         ),

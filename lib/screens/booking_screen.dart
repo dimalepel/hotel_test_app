@@ -446,6 +446,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                 req: groupReq,
                                 onTap: () async {
                                   DateTime? pickedBirthdayDate = await showDatePicker(
+                                    locale: const Locale('ru', 'RU'),
                                       context: context, initialDate: DateTime.now(),
                                       firstDate: DateTime(1900), //DateTime.now() - not to allow to choose before today.
                                       lastDate: DateTime(2101)
@@ -485,6 +486,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                 req: groupReq,
                                   onTap: () async {
                                     DateTime? pickedPassportStopDate = await showDatePicker(
+                                        locale: const Locale('ru', 'RU'),
                                         context: context, initialDate: DateTime.now(),
                                         firstDate: DateTime(1900), //DateTime.now() - not to allow to choose before today.
                                         lastDate: DateTime(2101)
