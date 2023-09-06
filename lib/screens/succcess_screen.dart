@@ -5,7 +5,9 @@ import '../widgets/accent_button.dart';
 import 'home_screen.dart';
 
 class SuccessScreen extends StatelessWidget {
-  const SuccessScreen({super.key});
+  final int orderId;
+
+  const SuccessScreen({super.key, required this.orderId});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,7 @@ class SuccessScreen extends StatelessWidget {
               ),
               SizedBox(height: 20,),
               Text(
-                'Подтверждение заказа №104893 может занять некоторое время (от 1 часа до суток). Как только мы получим ответ от туроператора, вам на почту придет уведомление.',
+                'Подтверждение заказа №${orderId.toString()} может занять некоторое время (от 1 часа до суток). Как только мы получим ответ от туроператора, вам на почту придет уведомление.',
                 style: TextStyle(
                     fontFamily: 'San Francisco',
                     fontWeight: FontWeight.w400,

@@ -29,7 +29,7 @@ class Tourist {
   String? surname;
   String? dateBirthday;
   String? citizenship;
-  int? passportNumber;
+  String? passportNumber;
   String? datePassportStop;
 
   Tourist({

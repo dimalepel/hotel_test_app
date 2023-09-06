@@ -1,9 +1,13 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hotel_test_app/models/booking_model.dart';
 import 'package:hotel_test_app/screens/succcess_screen.dart';
 import 'package:hotel_test_app/widgets/tourist_card.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +31,8 @@ class _BookingScreenState extends State<BookingScreen> {
       filter: { "#": RegExp(r'[0-9]') },
       type: MaskAutoCompletionType.lazy
   );
+
+  final formData = FormData();
 
   @override
   void initState() {
@@ -62,8 +68,8 @@ class _BookingScreenState extends State<BookingScreen> {
       ),
       body: (bookingData.loading)
           ? Center(
-              child: Image.asset(
-                  'assets/images/spinner.gif'
+              child: CircularProgressIndicator(
+                color: AppColors.blue,
               ),
             )
           :SingleChildScrollView(
@@ -376,6 +382,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           hint: '+7 (***) ***-**-**',
                           req: true,
                           val: bookingData.customer!.phoneNumber,
+                          save: (value) => formData.phoneNumber = value,
                         ),
                         SizedBox(height: 8,),
                         CustomFormField(
@@ -383,6 +390,7 @@ class _BookingScreenState extends State<BookingScreen> {
                           validator: (value) => EmailValidator.validate(value!) ? null : "Please enter a valid email",
                           req: true,
                           val: bookingData.customer!.email,
+                          save: (value) => formData.email = value,
                         ),
                         SizedBox(height: 8,),
                         Text(
@@ -404,17 +412,35 @@ class _BookingScreenState extends State<BookingScreen> {
                           labelText: '${convertToString(bookingData.customer!.tourists![index].id + 1)} турист',
                           children: [
                             SizedBox(height: 6,),
-                            CustomFormField(label: 'Имя'),
+                            CustomFormField(
+                                label: 'Имя',
+                                save: (value) => bookingData.customer!.tourists![index].name = value,
+                            ),
                             SizedBox(height: 8,),
-                            CustomFormField(label: 'Фамилия'),
+                            CustomFormField(
+                              label: 'Фамилия',
+                              save: (value) => bookingData.customer!.tourists![index].surname = value,
+                            ),
                             SizedBox(height: 8,),
-                            CustomFormField(label: 'Дата рождения'),
+                            CustomFormField(
+                              label: 'Дата рождения',
+                              save: (value) => bookingData.customer!.tourists![index].dateBirthday = value,
+                            ),
                             SizedBox(height: 8,),
-                            CustomFormField(label: 'Гражданство'),
+                            CustomFormField(
+                              label: 'Гражданство',
+                              save: (value) => bookingData.customer!.tourists![index].citizenship = value,
+                            ),
                             SizedBox(height: 8,),
-                            CustomFormField(label: 'Номер загранпаспорта'),
+                            CustomFormField(
+                              label: 'Номер загранпаспорта',
+                              save: (value) => bookingData.customer!.tourists![index].passportNumber = value,
+                            ),
                             SizedBox(height: 8,),
-                            CustomFormField(label: 'Срок действия загранпаспорта'),
+                            CustomFormField(
+                              label: 'Срок действия загранпаспорта',
+                              save: (value) => bookingData.customer!.tourists![index].datePassportStop = value,
+                            ),
                             SizedBox(height: 16,),
                           ],
                         ),
@@ -611,9 +637,39 @@ class _BookingScreenState extends State<BookingScreen> {
           label: 'Оплатить ${(NumberFormat().format(bookingData.booking!.tourPrice
               + bookingData.booking!.fuelCharge
               + bookingData.booking!.serviceCharge)).toString().replaceAll(',', ' ')} ₽',
-          onTap: () {
+          onTap: () async {
             if (_formKey.currentState!.validate()) {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const SuccessScreen()));
+              _formKey.currentState!.save();
+
+              late int orderId = Random().nextInt(100000);
+
+              Map<String,String> headers = {'Content-Type': 'application/json; charset=UTF-8'};
+              var map = new Map<String, dynamic>();
+              map['order_id'] = orderId;
+              map['hotel_detail'] = {
+                'hotel': bookingData.booking!.hotelName,
+                'hotel_address': bookingData.booking!.hotelAddress,
+                'summ': '${(NumberFormat().format(bookingData.booking!.tourPrice
+                    + bookingData.booking!.fuelCharge
+                    + bookingData.booking!.serviceCharge)).toString().replaceAll(',', ' ')} ₽'
+              };
+              map['customer'] = {
+                'phone_number': formData.phoneNumber,
+                'email': formData.email
+              };
+              map['tourists'] = bookingData.customer!.tourists;
+
+              final body = jsonEncode(map);
+
+              http.Response response = await http.post(
+                Uri.parse('https://webhook.site/c9d636b4-1e5d-4ddf-a17e-46e3cbd45166'),
+                headers: headers,
+                body: body,
+              );
+
+              if (response.statusCode == 200) {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => SuccessScreen(orderId: orderId,)));
+              }
             }
           },
         ),
@@ -645,4 +701,14 @@ class _BookingScreenState extends State<BookingScreen> {
         return 'Еще один';
     }
   }
+}
+
+class FormData {
+  String? phoneNumber;
+  String? email;
+
+  FormData({
+    this.phoneNumber,
+    this.email
+  });
 }

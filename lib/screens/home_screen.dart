@@ -48,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: (hotelData.loading)
           ? Center(
-              child: Image.asset(
-                'assets/images/spinner.gif'
+              child: CircularProgressIndicator(
+                color: AppColors.blue,
               ),
             )
           : SingleChildScrollView(

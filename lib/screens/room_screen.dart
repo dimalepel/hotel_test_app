@@ -56,8 +56,8 @@ class _RoomScreenState extends State<RoomScreen> {
       ),
       body: (roomData.loading)
         ? Center(
-            child: Image.asset(
-                'assets/images/spinner.gif'
+            child: CircularProgressIndicator(
+              color: AppColors.blue,
             ),
           )
       : SingleChildScrollView(

@@ -11,6 +11,7 @@ class CustomFormField extends StatefulWidget {
   final String? hint;
   final bool? req;
   final String? val;
+  final void Function(String?)? save;
 
   const CustomFormField({
     super.key,
@@ -18,8 +19,9 @@ class CustomFormField extends StatefulWidget {
     this.validator,
     this.formatters,
     this.hint,
-    this.req,
-    this.val
+    this.req = false,
+    this.val,
+    this.save
   });
 
   @override
@@ -40,7 +42,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       validator: (value) {
-        if (reqIn! && (value == null || value.isEmpty)) {
+        /*if (reqIn! && (value == null || value.isEmpty)) {
           setState(() {
             isValid = false;
           });
@@ -49,7 +51,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
           setState(() {
             isValid = true;
           });
-        }
+        }*/
 
         return null;
       },
@@ -61,6 +63,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
           fontFamily: 'San Francisco',
           fontWeight: FontWeight.w400
       ),
+      onSaved: widget.save,
       decoration: InputDecoration(
         isCollapsed: true,
         contentPadding: EdgeInsets.only(
