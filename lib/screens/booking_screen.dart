@@ -35,16 +35,20 @@ class _BookingScreenState extends State<BookingScreen> {
   final formData = FormData();
   //final List<TextEditingController> dateBirthdayControllers = [];
   //TextEditingController dateinput = TextEditingController();
-  List<TextEditingController> textEditingControllers = [];
+  //List<TextEditingController> textEditingControllers = [];
+  List<TextEditingController> datePassportStopControllers = [];
+  List<TextEditingController> dateBirthdayControllers = [];
 
   @override
   void initState() {
     final bookingData = Provider.of<BookingDataProvider>(context, listen: false);
     bookingData.getBookingData();
-    for (var i = 0; i < 10; i++) {
-      var textEditingController = TextEditingController(text: '');
-      textEditingControllers.add(textEditingController);
-    };
+    datePassportStopControllers = bookingData.datePassportStopControllers;
+    dateBirthdayControllers = bookingData.dateBirthdayControllers;
+    // for (var i = 0; i < 10; i++) {
+    //   var textEditingController = TextEditingController(text: '');
+    //   textEditingControllers.add(textEditingController);
+    // };
     super.initState();
   }
 
@@ -436,25 +440,25 @@ class _BookingScreenState extends State<BookingScreen> {
                               ),
                               SizedBox(height: 8,),
                               CustomFormField(
-                                controller: textEditingControllers[index],
+                                controller: dateBirthdayControllers[index],
                                 label: 'Дата рождения',
                                 save: (value) => bookingData.customer!.tourists![index].dateBirthday = value,
                                 req: groupReq,
                                 onTap: () async {
-                                  DateTime? pickedDate = await showDatePicker(
+                                  DateTime? pickedBirthdayDate = await showDatePicker(
                                       context: context, initialDate: DateTime.now(),
-                                      firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                                      firstDate: DateTime(1900), //DateTime.now() - not to allow to choose before today.
                                       lastDate: DateTime(2101)
                                   );
 
-                                  if(pickedDate != null ){
-                                    print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
-                                    String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-                                    print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                                  if(pickedBirthdayDate != null ){
+                                    print(pickedBirthdayDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                                    String formattedBirthdayDate = DateFormat('dd.MM.yyyy').format(pickedBirthdayDate);
+                                    print(formattedBirthdayDate); //formatted date output using intl package =>  2021-03-16
                                     //you can implement different kind of Date Format here according to your requirement
 
                                     setState(() {
-                                      textEditingControllers[index].text = formattedDate; //set output date to TextField value.
+                                      dateBirthdayControllers[index].text = formattedBirthdayDate; //set output date to TextField value.
                                     });
                                   }else{
                                     print("Date is not selected");
@@ -475,9 +479,30 @@ class _BookingScreenState extends State<BookingScreen> {
                               ),
                               SizedBox(height: 8,),
                               CustomFormField(
+                                controller: datePassportStopControllers[index],
                                 label: 'Срок действия загранпаспорта',
                                 save: (value) => bookingData.customer!.tourists![index].datePassportStop = value,
                                 req: groupReq,
+                                  onTap: () async {
+                                    DateTime? pickedPassportStopDate = await showDatePicker(
+                                        context: context, initialDate: DateTime.now(),
+                                        firstDate: DateTime(1900), //DateTime.now() - not to allow to choose before today.
+                                        lastDate: DateTime(2101)
+                                    );
+
+                                    if(pickedPassportStopDate != null ){
+                                      print(pickedPassportStopDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                                      String formattedPassportStopDate = DateFormat('dd.MM.yyyy').format(pickedPassportStopDate);
+                                      print(formattedPassportStopDate); //formatted date output using intl package =>  2021-03-16
+                                      //you can implement different kind of Date Format here according to your requirement
+
+                                      setState(() {
+                                        datePassportStopControllers[index].text = formattedPassportStopDate; //set output date to TextField value.
+                                      });
+                                    }else{
+                                      print("Date is not selected");
+                                    }
+                                  },
                               ),
                               SizedBox(height: 16,),
                             ],

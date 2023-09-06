@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
 import '../models/booking_model.dart';
@@ -15,11 +16,19 @@ class BookingDataProvider extends ChangeNotifier {
         Tourist(id: 0)
       ]
   );
+  List<TextEditingController> dateBirthdayControllers = [
+    TextEditingController(text: '')
+  ];
+  List<TextEditingController> datePassportStopControllers = [
+    TextEditingController(text: '')
+  ];
 
   getBookingData() async {
     loading = true;
     booking = (await bookingService.getBookingData());
     customer = customer;
+    dateBirthdayControllers = dateBirthdayControllers;
+    datePassportStopControllers = datePassportStopControllers;
     loading = false;
 
     notifyListeners();
@@ -28,6 +37,8 @@ class BookingDataProvider extends ChangeNotifier {
   void addTourist() {
     int touristLen = customer!.tourists!.length;
 
+    dateBirthdayControllers.add(TextEditingController(text: ''));
+    datePassportStopControllers.add(TextEditingController(text: ''));
     customer!.tourists!.add(Tourist(id: touristLen));
     notifyListeners();
   }
