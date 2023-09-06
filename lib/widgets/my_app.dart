@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             dividerColor: AppColors.transparent
         ),
-        title: 'Бронирование номеров',
+        title: 'Отель',
         debugShowCheckedModeBanner: false,
         home: HomeScreen(),
       ),
