@@ -33,11 +33,18 @@ class _BookingScreenState extends State<BookingScreen> {
   );
 
   final formData = FormData();
+  //final List<TextEditingController> dateBirthdayControllers = [];
+  //TextEditingController dateinput = TextEditingController();
+  List<TextEditingController> textEditingControllers = [];
 
   @override
   void initState() {
     final bookingData = Provider.of<BookingDataProvider>(context, listen: false);
     bookingData.getBookingData();
+    for (var i = 0; i < 10; i++) {
+      var textEditingController = TextEditingController(text: '');
+      textEditingControllers.add(textEditingController);
+    };
     super.initState();
   }
 
@@ -410,6 +417,8 @@ class _BookingScreenState extends State<BookingScreen> {
                         bookingData.customer!.tourists!.length,
                         (index) {
                           bool groupReq = (bookingData.customer!.tourists![index].id == 0) ? true : false;
+
+
                           return TouristCard(
                             labelText: '${convertToString(bookingData.customer!.tourists![index].id + 1)} турист',
                             children: [
@@ -427,9 +436,30 @@ class _BookingScreenState extends State<BookingScreen> {
                               ),
                               SizedBox(height: 8,),
                               CustomFormField(
+                                controller: textEditingControllers[index],
                                 label: 'Дата рождения',
                                 save: (value) => bookingData.customer!.tourists![index].dateBirthday = value,
                                 req: groupReq,
+                                onTap: () async {
+                                  DateTime? pickedDate = await showDatePicker(
+                                      context: context, initialDate: DateTime.now(),
+                                      firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                                      lastDate: DateTime(2101)
+                                  );
+
+                                  if(pickedDate != null ){
+                                    print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                                    String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                                    print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                                    //you can implement different kind of Date Format here according to your requirement
+
+                                    setState(() {
+                                      textEditingControllers[index].text = formattedDate; //set output date to TextField value.
+                                    });
+                                  }else{
+                                    print("Date is not selected");
+                                  }
+                                },
                               ),
                               SizedBox(height: 8,),
                               CustomFormField(

@@ -12,6 +12,8 @@ class CustomFormField extends StatefulWidget {
   final bool? req;
   final String? val;
   final void Function(String?)? save;
+  final void Function()? onTap;
+  final controller;
 
   const CustomFormField({
     super.key,
@@ -21,7 +23,9 @@ class CustomFormField extends StatefulWidget {
     this.hint,
     this.req = false,
     this.val,
-    this.save
+    this.save,
+    this.onTap,
+    this.controller
   });
 
   @override
@@ -55,6 +59,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
 
         return null;
       },
+      controller: widget.controller,
       initialValue: widget.val,
       inputFormatters: widget.formatters,
       style: TextStyle(
@@ -64,6 +69,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
           fontWeight: FontWeight.w400
       ),
       onSaved: widget.save,
+      onTap: widget.onTap,
       decoration: InputDecoration(
         isCollapsed: true,
         contentPadding: EdgeInsets.only(
