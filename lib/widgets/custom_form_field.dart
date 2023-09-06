@@ -42,7 +42,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       validator: (value) {
-        /*if (reqIn! && (value == null || value.isEmpty)) {
+        if (reqIn! && (value == null || value.isEmpty)) {
           setState(() {
             isValid = false;
           });
@@ -51,7 +51,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
           setState(() {
             isValid = true;
           });
-        }*/
+        }
 
         return null;
       },

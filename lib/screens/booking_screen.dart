@@ -408,42 +408,51 @@ class _BookingScreenState extends State<BookingScreen> {
                   Column(
                     children: List.generate(
                         bookingData.customer!.tourists!.length,
-                        (index) => TouristCard(
-                          labelText: '${convertToString(bookingData.customer!.tourists![index].id + 1)} турист',
-                          children: [
-                            SizedBox(height: 6,),
-                            CustomFormField(
+                        (index) {
+                          bool groupReq = (bookingData.customer!.tourists![index].id == 0) ? true : false;
+                          return TouristCard(
+                            labelText: '${convertToString(bookingData.customer!.tourists![index].id + 1)} турист',
+                            children: [
+                              SizedBox(height: 6,),
+                              CustomFormField(
                                 label: 'Имя',
                                 save: (value) => bookingData.customer!.tourists![index].name = value,
-                            ),
-                            SizedBox(height: 8,),
-                            CustomFormField(
-                              label: 'Фамилия',
-                              save: (value) => bookingData.customer!.tourists![index].surname = value,
-                            ),
-                            SizedBox(height: 8,),
-                            CustomFormField(
-                              label: 'Дата рождения',
-                              save: (value) => bookingData.customer!.tourists![index].dateBirthday = value,
-                            ),
-                            SizedBox(height: 8,),
-                            CustomFormField(
-                              label: 'Гражданство',
-                              save: (value) => bookingData.customer!.tourists![index].citizenship = value,
-                            ),
-                            SizedBox(height: 8,),
-                            CustomFormField(
-                              label: 'Номер загранпаспорта',
-                              save: (value) => bookingData.customer!.tourists![index].passportNumber = value,
-                            ),
-                            SizedBox(height: 8,),
-                            CustomFormField(
-                              label: 'Срок действия загранпаспорта',
-                              save: (value) => bookingData.customer!.tourists![index].datePassportStop = value,
-                            ),
-                            SizedBox(height: 16,),
-                          ],
-                        ),
+                                req: groupReq,
+                              ),
+                              SizedBox(height: 8,),
+                              CustomFormField(
+                                label: 'Фамилия',
+                                save: (value) => bookingData.customer!.tourists![index].surname = value,
+                                req: groupReq,
+                              ),
+                              SizedBox(height: 8,),
+                              CustomFormField(
+                                label: 'Дата рождения',
+                                save: (value) => bookingData.customer!.tourists![index].dateBirthday = value,
+                                req: groupReq,
+                              ),
+                              SizedBox(height: 8,),
+                              CustomFormField(
+                                label: 'Гражданство',
+                                save: (value) => bookingData.customer!.tourists![index].citizenship = value,
+                                req: groupReq,
+                              ),
+                              SizedBox(height: 8,),
+                              CustomFormField(
+                                label: 'Номер загранпаспорта',
+                                save: (value) => bookingData.customer!.tourists![index].passportNumber = value,
+                                req: groupReq,
+                              ),
+                              SizedBox(height: 8,),
+                              CustomFormField(
+                                label: 'Срок действия загранпаспорта',
+                                save: (value) => bookingData.customer!.tourists![index].datePassportStop = value,
+                                req: groupReq,
+                              ),
+                              SizedBox(height: 16,),
+                            ],
+                          );
+                        }
                     ),
                   ),
                   Container(
