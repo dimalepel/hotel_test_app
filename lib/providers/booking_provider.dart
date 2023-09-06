@@ -43,4 +43,10 @@ class BookingDataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<bool> sendBookingData(dynamic data) async {
+    bool result = (await bookingService.sendBookingData(data));
+
+    return result;
+  }
+
 }

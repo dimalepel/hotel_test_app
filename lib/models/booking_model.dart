@@ -1,7 +1,7 @@
 class Booking {
   int id;
   String hotelName;
-  String hotelAddress;
+  String hotelAdress;
   int horating;
   String ratingName;
   String departure;
@@ -18,7 +18,7 @@ class Booking {
   Booking({
     required this.id,
     required this.hotelName,
-    required this.hotelAddress,
+    required this.hotelAdress,
     required this.horating,
     required this.ratingName,
     required this.departure,
@@ -36,7 +36,7 @@ class Booking {
   Booking.fromJson(Map<String, dynamic> json) :
     id = json['id'],
     hotelName = json['hotel_name'],
-    hotelAddress = json['hotel_adress'],
+    hotelAdress = json['hotel_adress'],
     horating = json['horating'],
     ratingName = json['rating_name'],
     departure = json['departure'],
@@ -49,4 +49,26 @@ class Booking {
     tourPrice = json['tour_price'],
     fuelCharge = json['fuel_charge'],
     serviceCharge = json['service_charge'];
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+
+    data['id'] = this.id;
+    data['hotel_name'] = this.hotelName;
+    data['hotel_adress'] = this.hotelAdress;
+    data['horating'] = this.horating;
+    data['rating_name'] = this.ratingName;
+    data['departure'] = this.departure;
+    data['arrival_country'] = this.arrivalCountry;
+    data['tour_date_start'] = this.tourDateStart;
+    data['tour_date_stop'] = this.tourDateStop;
+    data['number_of_nights'] = this.numberOfNights;
+    data['room'] = this.room;
+    data['nutrition'] = this.nutrition;
+    data['tour_price'] = this.tourPrice;
+    data['fuel_charge'] = this.fuelCharge;
+    data['service_charge'] = this.serviceCharge;
+
+    return data;
+  }
 }

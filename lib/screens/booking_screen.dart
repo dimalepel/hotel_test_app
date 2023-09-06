@@ -148,7 +148,7 @@ class _BookingScreenState extends State<BookingScreen> {
                         minimumSize: Size(0, 0)
                     ),
                     child: Text(
-                      '${bookingData.booking!.hotelAddress}',
+                      '${bookingData.booking!.hotelAdress}',
                       style: TextStyle(
                           fontFamily: 'San Francisco',
                           fontSize: 14,
@@ -709,15 +709,13 @@ class _BookingScreenState extends State<BookingScreen> {
 
               late int orderId = Random().nextInt(100000);
 
-              Map<String,String> headers = {'Content-Type': 'application/json; charset=UTF-8'};
               var map = new Map<String, dynamic>();
               map['order_id'] = orderId;
               map['hotel_detail'] = {
-                'hotel': bookingData.booking!.hotelName,
-                'hotel_address': bookingData.booking!.hotelAddress,
-                'summ': '${(NumberFormat().format(bookingData.booking!.tourPrice
+                ...bookingData.booking!.toJson(),
+                'be_paid': '${(NumberFormat().format(bookingData.booking!.tourPrice
                     + bookingData.booking!.fuelCharge
-                    + bookingData.booking!.serviceCharge)).toString().replaceAll(',', ' ')} ₽'
+                    + bookingData.booking!.serviceCharge)).toString().replaceAll(',', ' ')} ₽',
               };
               map['customer'] = {
                 'phone_number': formData.phoneNumber,
@@ -727,13 +725,9 @@ class _BookingScreenState extends State<BookingScreen> {
 
               final body = jsonEncode(map);
 
-              http.Response response = await http.post(
-                Uri.parse('https://webhook.site/c9d636b4-1e5d-4ddf-a17e-46e3cbd45166'),
-                headers: headers,
-                body: body,
-              );
+              Future<bool> response = Provider.of<BookingDataProvider>(context, listen: false).sendBookingData(body);
 
-              if (response.statusCode == 200) {
+              if (await response) {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => SuccessScreen(orderId: orderId,)));
               }
             }
