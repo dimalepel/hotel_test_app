@@ -38,7 +38,7 @@
 </details>
 
 ## Видео работы приложения
-![](resources/screen_recording_hotel_app.mp4)
+https://github.com/dimalepel/hotel_test_app/assets/10213719/df1293ea-981e-43f6-8e2d-ec7b5f081e4f
 
 ## План по улучшению приложения:
 * [ ] Педелать экран загрузки, что бы изображение не ломало пропорции
