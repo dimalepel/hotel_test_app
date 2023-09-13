@@ -1,6 +1,8 @@
 # Тестовое задание "Мобильное приложение бронирования номеров отеля"
 Поддержка Android 10.0+
 
+[Ссылка на тестовое задание](https://docs.google.com/document/d/17qmmyyx9fh7Gy1jnyPQziLHQtMm3ODsLxMoEa2DZDPE/edit)
+
 ## Рекомендуемый стек технологий:
 * Dart
 * Block (Или любой стейт менеджер)
